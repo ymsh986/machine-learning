@@ -5,26 +5,36 @@ import datetime
 
 import joblib
 
+
 class Config:
     name_v1 = "lgb"
 
-    model_params = dict(n_estimators=10000,
-                        num_leaves=31,
-                        objective="binary",
-                        learning_rate=0.01,
-                        colsample_bytree=0.3,
-                        class_weight="balanced",
-                        importance_type="gain")
+    model_fixed_params = dict(n_estimators=10000,
+                              objective="binary",
+                              colsample_bytree=0.7,
+                              importance_type="gain")
+
+    """
+    model_variable_params = dict(num_leaves=[15, 31, 63],
+                                 max_depth=[6, 8, 10],
+                                 min_gain_to_split=[0, 0.1])
+    model_variable_params = dict(num_leaves=[31, 63],
+                                 max_depth=[8, 10],
+                                 learning_rate=[0.01, 0.001])
+    """
+    model_variable_params = dict(num_leaves=[31],
+                                 max_depth=[10],
+                                 learning_rate=[0.01])
 
     fit_params = dict(early_stopping_rounds=100,
                       verbose=100)
 
-    n_fold = 3
+    n_fold = 5
     seeds = [777]
     target_col = "judgement"
     submit = False
     debug = False
-    ratio = 2
+    ratio = 20
 
 
 class Logger:
